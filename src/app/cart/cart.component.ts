@@ -43,17 +43,17 @@ export class CartComponent implements OnInit {
       "pos": "",
       "email": "",
       "img": "",
-      "startedAt":"",
+      "startedAt": "",
       "bio": ""
     }
     this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Response) => {
-      console.log(res)
+      this.loadPage();
     })
   }
   
   delete_Cart(id: number){
     this.cartService.deleteCart(id).subscribe((res: Response)=>{
-      console.log(res)
+      this.loadPage();
     })
   }
 
@@ -65,5 +65,10 @@ export class CartComponent implements OnInit {
 
   }
 
+  loadPage(){
+    this.cartService.
+      get_carts()
+      .subscribe(carts => this.carts = carts);
+  }
 
 }
