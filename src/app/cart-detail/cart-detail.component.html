@@ -1,0 +1,31 @@
+<form class="example-form float-right" *ngIf="message == true" >
+  <mat-card >
+    <mat-card-title m-auto>
+       <button (click)="closeDetails()" mat-mini-fab color="warn"> < </button>
+       <button class="float-right" mat-flat-button color="warn">Save</button>
+    </mat-card-title>
+  <mat-form-field class="example-full-width">
+    <input value={{cartDetail.name}} matInput placeholder="Name and Surname">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea value={{cartDetail.pos}} matInput placeholder="Position"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea value={{cartDetail.email}} matInput placeholder="Email"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea value={{cartDetail.img}} matInput placeholder="Img"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea value={{cartDetail.startedAt}} matInput placeholder="startedAt"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea value={{cartDetail.bio}} matInput placeholder="Bio"></textarea>
+  </mat-form-field>
+  </mat-card>
+</form>
