@@ -1,4 +1,5 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { CartComponent } from './cart/cart.component';
 
 @Component({
   selector: 'app',
@@ -7,10 +8,15 @@ import { Component,OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
+  @ViewChild(CartComponent, {static: false}) cart: CartComponent;
   constructor(  ) {
   }
 
   ngOnInit(){
+  }
+
+  ngAfterViewInit(){
+    console.log(this.cart.carts);
   }
 
 }
