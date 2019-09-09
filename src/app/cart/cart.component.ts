@@ -16,6 +16,8 @@ export class CartComponent implements OnInit {
 
   private detail = false;
 
+  private parent: Cart;
+
   public selectedCart: Cart;
 
   public productsObservable: Observable<Cart[]>;
@@ -37,14 +39,16 @@ export class CartComponent implements OnInit {
   }
 
   createNewCard() {
-
+    
     this.cardObj = {
       "name": "",
       "pos": "",
       "email": "",
       "img": "",
       "startedAt": "",
-      "bio": ""
+      "bio": "",
+      "parent": this.parent
+
     }
     this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Response) => {
       this.loadPage();
@@ -69,6 +73,11 @@ export class CartComponent implements OnInit {
     this.cartService.
       get_carts()
       .subscribe(carts => this.carts = carts);
+  }
+
+  getParent(parent: Cart){
+    this.parent = parent;
+    console.log(this.parent);
   }
 
 }

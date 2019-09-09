@@ -12,7 +12,7 @@
   </mat-card-content>
   <mat-card-actions class="float-right">
     <div class="button-row">
-    <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">+</button>
+    <button (click)="getParent(cart)" mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">+</button>
 <mat-menu #menu="matMenu">
   <button (click)="createNewCard()" mat-menu-item>Add</button>
   <button (click)="get_Detail(cart)" type="button" mat-menu-item>Detail</button>

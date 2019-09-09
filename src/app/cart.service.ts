@@ -21,7 +21,7 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
   get_carts(){
-      return this.http.get<any[]>(this.baseUrl + 'cart/')
+      return this.http.get<Cart[]>(this.baseUrl + 'cart/')
   }
 
   get_cart(id: number): Observable<Cart> {
