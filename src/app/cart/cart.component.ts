@@ -14,6 +14,8 @@ export class CartComponent implements OnInit {
 
   public carts: Cart[] = [];
 
+  public childCarts: Cart;
+
   private detail = false;
 
   private parent: Cart;
@@ -78,6 +80,12 @@ export class CartComponent implements OnInit {
   getParent(parent: Cart){
     this.parent = parent;
     console.log(this.parent);
+  }
+
+  getChildren(id: number){
+    console.log(this.get_Cart(id));
+    this.childCarts = this.get_Cart(id)
+    return this.carts;
   }
 
 }

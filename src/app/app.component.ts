@@ -15,9 +15,6 @@ export class AppComponent implements OnInit {
   ngOnInit(){
   }
 
-  ngAfterViewInit(){
-    console.log(this.cart.carts);
-  }
 
 }
 

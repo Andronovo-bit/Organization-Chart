@@ -15,12 +15,13 @@ import { CartService } from './cart.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CartDetailComponent } from './cart-detail/cart-detail.component';
 import { CartComponent } from './cart/cart.component';
+import { CreateDivComponent } from './create-div/create-div.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, BrowserAnimationsModule,
   MatButtonModule, MatCheckboxModule, MatInputModule , MatSelectModule, MatCardModule, MatDatepickerModule, MatMenuModule, HttpClientModule],
 
-  declarations: [ AppComponent, CartDetailComponent, CartComponent ],
+  declarations: [ AppComponent, CartDetailComponent, CartComponent, CreateDivComponent ],
 
   bootstrap:    [ AppComponent ],
   
