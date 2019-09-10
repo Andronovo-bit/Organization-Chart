@@ -14,7 +14,7 @@ export class CartComponent implements OnInit {
 
   public carts: Cart[] = [];
 
-  public childCarts: Cart;
+  public childCarts: Cart[] = [];
 
   private detail = false;
 
@@ -37,6 +37,10 @@ export class CartComponent implements OnInit {
   }
 
   get_Cart(id: number): Cart {
+    return this.carts.find(i => i.id == id)
+  }
+
+  get_Pcarts(id: number): Cart {
     return this.carts.find(i => i.id == id)
   }
 
@@ -79,13 +83,18 @@ export class CartComponent implements OnInit {
 
   getParent(parent: Cart){
     this.parent = parent;
-    console.log(this.parent);
+   // console.log(this.parent);
   }
 
-  getChildren(id: number){
-    console.log(this.get_Cart(id));
+  getChildren(parent: Cart){
+    this.getParent(parent);
+    this.childCarts.push(this.get_Pcarts(parent.id))
+    return this.childCarts;
+    console.log(this.childCarts)
+   /* console.log(this.get_Cart(id));
     this.childCarts = this.get_Cart(id)
-    return this.carts;
+    console.log(this.childCarts);
+    return this.childCarts;*/
   }
 
 }

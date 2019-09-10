@@ -5,8 +5,7 @@
   </mat-card-header>!-->
   <mat-card-title class=" d-flex float-right">{{cart.pos}}</mat-card-title>
   <mat-card-content class="mt-2">
-      <mat-card-subtitle class="text-center" >{{cart.name}}</mat-card-subtitle>
-
+   <mat-card-subtitle class="text-center" >{{cart.name}}</mat-card-subtitle>
   </mat-card-content>
   <mat-card-actions class="float-right">
     <div class="button-row">
@@ -19,8 +18,12 @@
     </div>
   </mat-card-actions>
 </mat-card>
-<div class="row" *ngFor="let child of getChildren(cart.id)">
+<div class="row" *ngFor="let child of getChildren(cart)">
+  <div [id]="childCarts.id" class="col">    
+    <app-cart>
 
+    </app-cart>
+  </div>
 </div>
 </div>
 
