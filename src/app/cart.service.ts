@@ -25,10 +25,6 @@ export class CartService {
   get_carts(){
     return this.http.get<Cart[]>(this.baseUrl + 'cart/')
   }
-  
-  loadPageServc(mes: boolean){
-    this.loadPageMes.next(mes)
-  }
 
   get_cart(id: number): Observable<Cart> {
     return this.http.get<Cart>(this.baseUrl + 'cart/' + id)
@@ -51,5 +47,8 @@ export class CartService {
     this.messageSoruce.next(message)
   }
 
+  loadPageServc(mes: boolean){
+    this.loadPageMes.next(mes)
+  }
 
 }

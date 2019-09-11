@@ -22,11 +22,13 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
     this.productsObservable.subscribe(carts => this.carts = carts )
+
+    this.loadpageCart()
   }
   
 
   ngOnInit() {
-  
+
   }
 
   setEnable(){
@@ -38,6 +40,23 @@ export class CartComponent implements OnInit {
   }
 
   loadpageCart(){
+
+    this.cartService.currentLoad.subscribe((loadMess)=>{
+    if(loadMess == true)
+    {this.setEnable()}
+    else{
+      this.setDisable()
+    }
+    })
+
+    if(this.loadPageBool == true)
+    {
+      this.loadpageCart();
+    }
+
+    console.log(this.loadPageBool)
+  
+
     this.cartService.
       get_carts()
       .subscribe(carts => this.carts = carts);

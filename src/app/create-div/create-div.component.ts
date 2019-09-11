@@ -78,9 +78,7 @@ export class CreateDivComponent implements OnInit {
   }
 
   loadPage(){
-    this.cartService.
-      get_carts()
-      .subscribe(carts => this.carts = carts);
+      this.cartService.loadPageServc(true)
     }
 
   getParent(parent: Cart){
