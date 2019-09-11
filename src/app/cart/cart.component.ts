@@ -13,6 +13,7 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 export class CartComponent implements OnInit {
 
   public carts: Cart[] = [];
+  public loadPageBool = false;
 
 
 
@@ -25,10 +26,22 @@ export class CartComponent implements OnInit {
   
 
   ngOnInit() {
+
   }
 
-
+  setEnable(){
+    this.loadPageBool = true;
+  }
   
+  setDisable(){
+    this.loadPageBool = false;
+  }
+
+  loadPage(){
+    this.cartService.
+      get_carts()
+      .subscribe(carts => this.carts = carts);
+  }
 
 
 }

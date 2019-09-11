@@ -26,7 +26,8 @@ export class CreateDivComponent implements OnInit {
   public productsObservable: Observable<Cart[]>;
 
   constructor(private cartService: CartService, private http: HttpClient) {
-    this.productsObservable.subscribe(carts => console.log(carts))
+    this.productsObservable = cartService.get_carts();
+    this.productsObservable.subscribe(carts => this.carts = carts)
      
   }
 
@@ -68,7 +69,6 @@ export class CreateDivComponent implements OnInit {
     })
   }
 
-
   get_Detail(newCart: Cart) {
     this.detail = true;
     this.selectedCart = newCart;
@@ -81,6 +81,7 @@ export class CreateDivComponent implements OnInit {
     this.cartService.
       get_carts()
       .subscribe(carts => this.carts = carts);
+    this.cartService.loadPage(true);
   }
 
   getParent(parent: Cart){
