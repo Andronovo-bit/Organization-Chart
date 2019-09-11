@@ -1,5 +1,19 @@
-
-<div  class="row float-center"  *ngFor="let cart of carts">
-fhcvncghf
-</div>
- 
+<mat-card class="example-card m-5" style="width:300px; height:150px;">
+      <img src={{parentData.img}} class="rounded-circle img-fluid border border-dark" style="width:50px; height:50px;">
+  <!--<mat-card-header class="container ">
+  </mat-card-header>!-->
+  <mat-card-title class=" d-flex float-right">{{parentData.pos}}</mat-card-title>
+  <mat-card-content class="mt-2">
+   <mat-card-subtitle class="text-center" >{{parentData.name}}</mat-card-subtitle>
+  </mat-card-content>
+  <mat-card-actions class="float-right">
+    <div class="button-row">
+    <button (click)="getParent(cart)" mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">+</button>
+      <mat-menu #menu="matMenu">
+        <button (click)="createNewCard()" mat-menu-item>Add</button>
+        <button (click)="get_Detail(cart)" type="button" mat-menu-item>Detail</button>
+        <button (click)="delete_Cart(cart.id)" mat-menu-item>Remove</button>
+      </mat-menu>
+    </div>
+  </mat-card-actions>
+</mat-card>

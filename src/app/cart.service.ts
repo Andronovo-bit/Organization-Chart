@@ -14,11 +14,9 @@ export class CartService {
 
   private messageSoruce = new BehaviorSubject<boolean>(false);
   private cartDetails = new BehaviorSubject<Cart>(undefined);
-  private createDiv = new BehaviorSubject<Cart>(undefined);
 
   currentMessage = this.messageSoruce.asObservable();
   currentCart = this.cartDetails.asObservable();
-  currentDiv = this.createDiv.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -45,10 +43,6 @@ export class CartService {
   changeMessage(message: boolean, cartDetail: Cart){
     this.cartDetails.next(cartDetail)
     this.messageSoruce.next(message)
-  }
-
-  divMessage(wtfDiv: Cart){
-    this.createDiv.next(wtfDiv);
   }
 
 }
