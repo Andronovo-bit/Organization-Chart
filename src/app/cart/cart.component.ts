@@ -26,7 +26,7 @@ export class CartComponent implements OnInit {
   
 
   ngOnInit() {
-
+  
   }
 
   setEnable(){
@@ -37,7 +37,7 @@ export class CartComponent implements OnInit {
     this.loadPageBool = false;
   }
 
-  loadPage(){
+  loadpageCart(){
     this.cartService.
       get_carts()
       .subscribe(carts => this.carts = carts);

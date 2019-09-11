@@ -23,10 +23,10 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
   get_carts(){
-      return this.http.get<Cart[]>(this.baseUrl + 'cart/')
+    return this.http.get<Cart[]>(this.baseUrl + 'cart/')
   }
   
-  loadPage(mes: boolean){
+  loadPageServc(mes: boolean){
     this.loadPageMes.next(mes)
   }
 

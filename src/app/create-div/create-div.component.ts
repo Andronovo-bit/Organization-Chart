@@ -16,7 +16,7 @@ export class CreateDivComponent implements OnInit {
   public childCarts: Cart[] = [];
 
   private detail = false;
-
+  private deneme = false;
   private parent: Cart;
 
   public selectedCart: Cart;
@@ -81,8 +81,7 @@ export class CreateDivComponent implements OnInit {
     this.cartService.
       get_carts()
       .subscribe(carts => this.carts = carts);
-    this.cartService.loadPage(true);
-  }
+    }
 
   getParent(parent: Cart){
     this.parent = parent;
