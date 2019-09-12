@@ -14,10 +14,13 @@ export class CartComponent implements OnInit {
 
   public carts: Cart[] = [];
   public productsObservable: Observable<Cart[]>;
+  public sclice: Cart[] = [];
 
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
     this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));
+    this.parentFnLoadPage("false");
+    
   }
   
   ngOnInit() {
@@ -32,7 +35,9 @@ export class CartComponent implements OnInit {
       .subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));     
     }
     $event = "false";
-    console.log(this.carts)
-	}
+        this.cartService.
+      get_carts()
+      .subscribe(carts =>this.sclice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))))   
+    }
 
 }

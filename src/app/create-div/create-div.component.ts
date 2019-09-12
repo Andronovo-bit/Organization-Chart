@@ -12,12 +12,14 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 export class CreateDivComponent implements OnInit {
 
  @Input() public parentData;
+ @Input() public splice: Cart[];
   
   public childCarts: Cart[] = [];
 
   private detail = false;
   private deneme = false;
   private parent: Cart;
+  private objCart: Cart;
 
   public selectedCart: Cart;
 
@@ -37,6 +39,8 @@ export class CreateDivComponent implements OnInit {
   }
 
   cardObj: object = {};
+  cardObj2: object = {};
+  cardObj3: object = {};
 
 
   get_Cart(id: number): Cart {
@@ -47,7 +51,7 @@ export class CreateDivComponent implements OnInit {
     return this.carts.find(i => i.id == id)
   }
 
-  createNewCard() {
+  createNewCard(clickCart: Cart) {
     
     this.cardObj = {
       "name": "",
@@ -56,15 +60,44 @@ export class CreateDivComponent implements OnInit {
       "img": "",
       "startedAt": "",
       "bio": "",
-      "parent": this.parent
-    }
+      "parent": this.parent,
+      "child": 0
+    }    
+
     this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Response) => {
        this.trigger.emit("true");
     })
+
+      this.cardObj2 = {
+      "name": "",
+      "pos": "",
+      "email": "",
+      "img": "",
+      "startedAt": "",
+      "bio": "",
+      "parent": this.parent,
+      "child": clickCart.child++
+    }    
+
+    this.cartService.updateCart(clickCart).subscribe()
   }
 
-    delete_Cart(id: number){
-    this.cartService.deleteCart(id).subscribe((res: Response)=>{
+    delete_Cart(clickCart: Cart){
+    
+    this.objCart = this.get_Cart(clickCart.parent.id)
+
+    this.objCart.child--;
+
+    this.cartService.updateCart(this.objCart).subscribe()
+
+    /*if(clickCart.child > 0){
+
+      findChild()
+      changeChildParent()
+
+    }*/
+
+      this.cartService.deleteCart(clickCart.id).subscribe((res: Response)=>{
       this.trigger.emit("true");
     })
 
@@ -92,6 +125,11 @@ export class CreateDivComponent implements OnInit {
     this.childCarts = this.get_Cart(id)
     console.log(this.childCarts);
     return this.childCarts;*/
+
+  }
+
+  findChild(cart: Cart)
+  {
 
   }
 
