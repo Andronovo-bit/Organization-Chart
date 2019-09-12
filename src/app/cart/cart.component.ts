@@ -13,54 +13,26 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 export class CartComponent implements OnInit {
 
   public carts: Cart[] = [];
-  public loadPageBool = false;
-
-
-
   public productsObservable: Observable<Cart[]>;
 
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
-    this.productsObservable.subscribe(carts => this.carts = carts )
-
-    this.loadpageCart()
+    this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));
   }
   
-
   ngOnInit() {
-
   }
 
-  setEnable(){
-    this.loadPageBool = true;
-  }
-  
-  setDisable(){
-    this.loadPageBool = false;
-  }
+  parentFnLoadPage($event: string) {		
+    console.log($event)
 
-  loadpageCart(){
-
-    this.cartService.currentLoad.subscribe((loadMess)=>{
-    if(loadMess == true)
-    {this.setEnable()}
-    else{
-      this.setDisable()
-    }
-    })
-
-    if(this.loadPageBool == true)
-    {
-      this.loadpageCart();
-    }
-
-    console.log(this.loadPageBool)
-  
-
+		if($event == "true")    {
     this.cartService.
       get_carts()
-      .subscribe(carts => this.carts = carts);
-  }
-
+      .subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));     
+    }
+    $event = "false";
+    console.log(this.carts)
+	}
 
 }

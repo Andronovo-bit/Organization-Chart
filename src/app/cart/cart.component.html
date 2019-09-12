@@ -1,5 +1,5 @@
 <div  class="row  justify-content-center"  *ngFor="let cart of carts">
-<app-create-div [parentData]="cart" class="row"> 
+<app-create-div (trigger)="parentFnLoadPage($event)" [parentData]="cart" class="row"> 
   
  </app-create-div>
 </div>

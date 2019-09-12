@@ -7,5 +7,6 @@ export interface Cart {
   startedAt: string;
   bio: string;
   parent?: Cart;
+  child?: number;
   constructor()
 }

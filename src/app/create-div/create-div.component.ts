@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output   } from '@angular/core';
 import { CartService } from '../cart.service';
 import { Cart } from '../cart.model';
 import { Observable } from 'rxjs';
@@ -25,10 +25,11 @@ export class CreateDivComponent implements OnInit {
 
   public productsObservable: Observable<Cart[]>;
 
+  @Output() trigger: EventEmitter<string> = new EventEmitter();
+
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
-    this.productsObservable.subscribe(carts => this.carts = carts)
-     
+    this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));  
   }
 
   ngOnInit() {
@@ -56,17 +57,17 @@ export class CreateDivComponent implements OnInit {
       "startedAt": "",
       "bio": "",
       "parent": this.parent
-
     }
     this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Response) => {
-      this.loadPage();
+       this.trigger.emit("true");
     })
   }
 
     delete_Cart(id: number){
     this.cartService.deleteCart(id).subscribe((res: Response)=>{
-      this.loadPage();
+      this.trigger.emit("true");
     })
+
   }
 
   get_Detail(newCart: Cart) {
@@ -76,10 +77,6 @@ export class CreateDivComponent implements OnInit {
     console.log(this.carts)
 
   }
-
-  loadPage(){
-      this.cartService.loadPageServc(true)
-    }
 
   getParent(parent: Cart){
     this.parent = parent;

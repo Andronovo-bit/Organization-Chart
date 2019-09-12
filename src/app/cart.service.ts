@@ -47,8 +47,5 @@ export class CartService {
     this.messageSoruce.next(message)
   }
 
-  loadPageServc(mes: boolean){
-    this.loadPageMes.next(mes)
-  }
 
 }
