@@ -12,7 +12,6 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 export class CreateDivComponent implements OnInit {
 
  @Input() public parentData;
- @Input() public splice: Cart[];
   
   public childCarts: Cart[] = [];
 
@@ -32,6 +31,7 @@ export class CreateDivComponent implements OnInit {
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
     this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));  
+  
   }
 
   ngOnInit() {
@@ -128,9 +128,12 @@ export class CreateDivComponent implements OnInit {
 
   }
 
-  findChild(cart: Cart)
-  {
+  findChild()  {
+    console.log(this.carts)
+  }
 
+  getCarts(): Cart[]{
+    return this.carts.slice(1,4);
   }
 
 }
