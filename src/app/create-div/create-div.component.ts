@@ -25,7 +25,7 @@ export class CreateDivComponent implements OnInit {
   private  cardObj: object = {};
   private incChildNum: object = {};
   private parentNumSum: number[] = [null,1,2,3,4,5]
-  private parentSum: number[] = []
+  private parentSum: number[] = [];
   //cardObj3: object = {};
 
 
@@ -93,6 +93,7 @@ export class CreateDivComponent implements OnInit {
     this.selectedCart = newCart;
     this.cartService.changeMessage(this.detail, this.selectedCart);
     console.log(this.carts)
+    console.log(this.parentSum)
 
   }
 
@@ -142,7 +143,7 @@ export class CreateDivComponent implements OnInit {
       "child": child
    }    
     
-    console.log(this.carts.length)
+    //console.log(this.carts.length)
     this.cartService.updateCart(this.selectedCart).subscribe()
   }
 
@@ -152,15 +153,13 @@ export class CreateDivComponent implements OnInit {
     for(let j = 0; j < this.parentNumSum.length ;j++){
      for( let i = 0; i < this.carts.length; i++){
         if(this.carts[i].parent.id == this.parentNumSum[j]){
-          sayac++;
-        } 
-      this.parentNumSum.push(sayac)
-      sayac = 0;
+          sayac++;          
+        }      
     }
+      this.parentSum.push(sayac)
+      sayac = 0;
   }
-
-
-
+  console.log(this.parentSum)
 }
 
 }
