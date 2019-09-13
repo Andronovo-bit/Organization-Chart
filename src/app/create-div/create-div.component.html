@@ -1,5 +1,5 @@
 
-  {{parentData.parent.id}} - {{parentData.id}} -- {{parentData.child}}
+  {{parentData.parent.id}} - {{parentData.id}} -- {{parentData.childNum}}
 <mat-card class="example-card m-5" style="width:300px; height:150px;">
       <img src={{parentData.img}} class="rounded-circle img-fluid border border-dark" style="width:50px; height:50px;">
   <!--<mat-card-header class="container ">
@@ -10,7 +10,7 @@
   </mat-card-content>
   <mat-card-actions class="float-right">
     <div class="button-row">
-    <button (click)="getParent(parentData)" mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">+</button>
+    <button (click)="getParent(parentData); deneme()" mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">+</button>
       <mat-menu #menu="matMenu">
         <button (click)="createNewCard(parentData)" mat-menu-item>Add</button>
         <button (click)="get_Detail(parentData)" type="button" mat-menu-item>Detail</button>

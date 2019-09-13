@@ -13,17 +13,21 @@ export class CreateDivComponent implements OnInit {
 
  @Input() public parentData;
   
-  public childCarts: Cart[] = [];
+  //public childCarts: Cart[] = [];
 
   private detail = false;
   private parent: Cart;
   private objCart: Cart;
-
+  private child: Cart;
   public selectedCart: Cart;
-
   public carts: Cart[] = [];
-
   public productsObservable: Observable<Cart[]>;
+  private  cardObj: object = {};
+  private incChildNum: object = {};
+  private parentNumSum: number[] = [null,1,2,3,4,5]
+  private parentSum: number[] = []
+  //cardObj3: object = {};
+
 
   @Output() trigger: EventEmitter<string> = new EventEmitter();
 
@@ -33,18 +37,10 @@ export class CreateDivComponent implements OnInit {
   
   }
 
- ngOnInit() {}
-
-  cardObj: object = {};
-  cardObj2: object = {};
-  //cardObj3: object = {};
-
+ ngOnInit() {  
+ }
 
   get_Cart(id: number): Cart {
-    return this.carts.find(i => i.id == id)
-  }
-
-  get_Pcarts(id: number): Cart {
     return this.carts.find(i => i.id == id)
   }
 
@@ -59,26 +55,16 @@ export class CreateDivComponent implements OnInit {
       "bio": "",
       "parent": this.parent,
       "childNum": 0,
-      "child": ""
+      "child": {}
     }    
 
-    this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Response) => {
-       this.trigger.emit("true");
+    this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Cart) => {
+      this.updateChildNumber(res)
+              this.trigger.emit("true");
     })
+    this.selectedCart = clickCart;
 
-      this.cardObj2 = {
-      "name": "",
-      "pos": "",
-      "email": "",
-      "img": "",
-      "startedAt": "",
-      "bio": "",
-      "parent": this.parent,
-      "childNum": clickCart.childNum++,
-      "child": clickCart.id
-    }    
-
-    this.cartService.updateCart(clickCart).subscribe()
+    //this.updateChildNumber()
   }
 
   delete_Cart(clickCart: Cart){
@@ -112,27 +98,69 @@ export class CreateDivComponent implements OnInit {
 
   getParent(parent: Cart){
     this.parent = parent;
+
    // console.log(this.parent);
   }
 
-  /*getChildren(parent: Cart){
-    this.getParent(parent);
+ /* getChildren(child: Cart){
+    /*this.getParent(parent);
     this.childCarts.push(this.get_Pcarts(parent.id))
     return this.childCarts;
     console.log(this.childCarts)
-   /* console.log(this.get_Cart(id));
+    console.log(this.get_Cart(id));
     this.childCarts = this.get_Cart(id)
     console.log(this.childCarts);
-    return this.childCarts;
-
+    return this.childCarts;*/
+   /* this.child = child
+    console.log(this.child)
+    console.log(this.parent)
+         
 }*/
 
-  findChild()  {
+ /* findChild(clickCart: Cart)  {
+    this.child.push(clickCart)
+  }*/
+
+ /* getCarts(): Cart[]{
+    return this.carts.slice(1,4);
+  }*/
+
+
+  updateChildNumber(child: Cart)
+  {
+    console.log(child)
+    //console.log(parent)
+      this.incChildNum = {
+      "name": "",
+      "pos": "",
+      "email": "",
+      "img": "",
+      "startedAt": "",
+      "bio": "",
+      "parent": this.parent,
+      "childNum": this.selectedCart.childNum++,
+      "child": child
+   }    
     
+    console.log(this.carts.length)
+    this.cartService.updateCart(this.selectedCart).subscribe()
   }
 
-  getCarts(): Cart[]{
-    return this.carts.slice(1,4);
+  deneme()
+  {
+    let sayac = 0
+    for(let j = 0; j < this.parentNumSum.length ;j++){
+     for( let i = 0; i < this.carts.length; i++){
+        if(this.carts[i].parent.id == this.parentNumSum[j]){
+          sayac++;
+        } 
+      this.parentNumSum.push(sayac)
+      sayac = 0;
+    }
   }
+
+
+
+}
 
 }
