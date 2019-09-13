@@ -16,7 +16,6 @@ export class CreateDivComponent implements OnInit {
   public childCarts: Cart[] = [];
 
   private detail = false;
-  private deneme = false;
   private parent: Cart;
   private objCart: Cart;
 
@@ -34,13 +33,11 @@ export class CreateDivComponent implements OnInit {
   
   }
 
-  ngOnInit() {
-
-  }
+ ngOnInit() {}
 
   cardObj: object = {};
   cardObj2: object = {};
-  cardObj3: object = {};
+  //cardObj3: object = {};
 
 
   get_Cart(id: number): Cart {
@@ -61,7 +58,8 @@ export class CreateDivComponent implements OnInit {
       "startedAt": "",
       "bio": "",
       "parent": this.parent,
-      "child": 0
+      "childNum": 0,
+      "child": ""
     }    
 
     this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Response) => {
@@ -76,17 +74,18 @@ export class CreateDivComponent implements OnInit {
       "startedAt": "",
       "bio": "",
       "parent": this.parent,
-      "child": clickCart.child++
+      "childNum": clickCart.childNum++,
+      "child": clickCart.id
     }    
 
     this.cartService.updateCart(clickCart).subscribe()
   }
 
-    delete_Cart(clickCart: Cart){
+  delete_Cart(clickCart: Cart){
     
     this.objCart = this.get_Cart(clickCart.parent.id)
 
-    this.objCart.child--;
+    this.objCart.childNum--;
 
     this.cartService.updateCart(this.objCart).subscribe()
 
@@ -116,7 +115,7 @@ export class CreateDivComponent implements OnInit {
    // console.log(this.parent);
   }
 
-  getChildren(parent: Cart){
+  /*getChildren(parent: Cart){
     this.getParent(parent);
     this.childCarts.push(this.get_Pcarts(parent.id))
     return this.childCarts;
@@ -124,12 +123,12 @@ export class CreateDivComponent implements OnInit {
    /* console.log(this.get_Cart(id));
     this.childCarts = this.get_Cart(id)
     console.log(this.childCarts);
-    return this.childCarts;*/
+    return this.childCarts;
 
-  }
+}*/
 
   findChild()  {
-    console.log(this.carts)
+    
   }
 
   getCarts(): Cart[]{

@@ -14,13 +14,13 @@ export class CartComponent implements OnInit {
 
   public carts: Cart[] = [];
   public productsObservable: Observable<Cart[]>;
-  public productsObservable2: Observable<Cart[]>;
-  public splice: Cart[] = [];
+  //public productsObservable2: Observable<Cart[]>;
+  //public splice: Cart[] = [];
 
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
     this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));
-    this.productsObservable.subscribe(carts => this.splice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))));
+    //this.productsObservable2.subscribe(carts => this.splice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))));
     this.parentFnLoadPage("false");
     
   }
@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
 
        /* this.cartService.
       get_carts()
-      .subscribe(carts =>this.sclice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))))   */
+      .subscribe(carts =>this.splice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))))   */
     }
 
 }
