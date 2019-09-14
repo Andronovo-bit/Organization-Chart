@@ -18,7 +18,7 @@ export class CreateDivComponent implements OnInit {
   private detail = false;
   private parent: Cart;
   private objCart: Cart;
-  private child: Cart;
+  private child: Cart[] = [];
   public selectedCart: Cart;
   public carts: Cart[] = [];
   public productsObservable: Observable<Cart[]>;
@@ -93,7 +93,7 @@ export class CreateDivComponent implements OnInit {
     this.selectedCart = newCart;
     this.cartService.changeMessage(this.detail, this.selectedCart);
     console.log(this.carts)
-    console.log(this.parentSum)
+   // console.log(this.parentSum)
 
   }
 
@@ -130,8 +130,9 @@ export class CreateDivComponent implements OnInit {
   updateChildNumber(child: Cart)
   {
     console.log(child)
+    this.child.push(child)
     //console.log(parent)
-      this.incChildNum = {
+    /*  this.incChildNum = {
       "name": "",
       "pos": "",
       "email": "",
@@ -139,15 +140,18 @@ export class CreateDivComponent implements OnInit {
       "startedAt": "",
       "bio": "",
       "parent": this.parent,
-      "childNum": this.selectedCart.childNum++,
-      "child": child
-   }    
-    
+      "child": this.child,
+      "childNum": this.selectedCart.childNum++     
+   }  */
+
+   this.selectedCart.child.push(this.child[0]);
+   this.selectedCart.childNum++;  
+    console.log(this.child[0])
     //console.log(this.carts.length)
     this.cartService.updateCart(this.selectedCart).subscribe()
   }
 
-  deneme()
+  deneme() //getHaveParentNum
   {
     let sayac = 0
     for(let j = 0; j < this.parentNumSum.length ;j++){
@@ -159,7 +163,7 @@ export class CreateDivComponent implements OnInit {
       this.parentSum.push(sayac)
       sayac = 0;
   }
-  console.log(this.parentSum)
+ //console.log(this.parentSum)
 }
 
 }

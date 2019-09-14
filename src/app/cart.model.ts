@@ -8,6 +8,6 @@ export interface Cart {
   bio: string;
   parent?: Cart;
   childNum?: number;
-  child?: Cart;
+  child?: Cart[];
   constructor()
 }
