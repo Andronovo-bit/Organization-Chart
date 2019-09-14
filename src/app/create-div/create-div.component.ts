@@ -18,14 +18,15 @@ export class CreateDivComponent implements OnInit {
   private detail = false;
   private parent: Cart;
   private objCart: Cart;
-  private child: Cart[] = [];
+  //private child: Cart[] = [];
   public selectedCart: Cart;
   public carts: Cart[] = [];
   public productsObservable: Observable<Cart[]>;
-  private  cardObj: object = {};
+  private cardObj: object = {};
   private incChildNum: object = {};
   private parentNumSum: number[] = [null,1,2,3,4,5]
   private parentSum: number[] = [];
+  private indexArry: number;
   //cardObj3: object = {};
 
 
@@ -46,6 +47,8 @@ export class CreateDivComponent implements OnInit {
 
   createNewCard(clickCart: Cart) {
     
+    this.selectedCart = clickCart;
+
     this.cardObj = {
       "name": "",
       "pos": "",
@@ -53,17 +56,16 @@ export class CreateDivComponent implements OnInit {
       "img": "",
       "startedAt": "",
       "bio": "",
-      "parent": this.parent,
+      "parent": this.parent.id,
       "childNum": 0,
-      "child": {}
+      "child": []
     }    
 
     this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Cart) => {
       this.updateChildNumber(res)
-              this.trigger.emit("true");
+        this.cartService.updateCart(this.selectedCart)
+           this.trigger.emit("true");
     })
-    this.selectedCart = clickCart;
-
     //this.updateChildNumber()
   }
 
@@ -72,6 +74,10 @@ export class CreateDivComponent implements OnInit {
     this.objCart = this.get_Cart(clickCart.parent.id)
 
     this.objCart.childNum--;
+    //console.log(this.objCart)
+    //console.log(this.findChildIndex(clickCart))
+    this.objCart.child.splice(this.findChildIndex(clickCart),1)
+    //console.log(this.objCart.child.pop())
 
     this.cartService.updateCart(this.objCart).subscribe()
 
@@ -128,9 +134,9 @@ export class CreateDivComponent implements OnInit {
 
 
   updateChildNumber(child: Cart)
-  {
+  { 
     console.log(child)
-    this.child.push(child)
+    //this.child.push(child)
     //console.log(parent)
     /*  this.incChildNum = {
       "name": "",
@@ -143,10 +149,10 @@ export class CreateDivComponent implements OnInit {
       "child": this.child,
       "childNum": this.selectedCart.childNum++     
    }  */
-
-   this.selectedCart.child.push(this.child[0]);
-   this.selectedCart.childNum++;  
-    console.log(this.child[0])
+   
+   this.selectedCart.child.push(child); 
+    this.selectedCart.childNum++;
+    console.log(this.selectedCart)
     //console.log(this.carts.length)
     this.cartService.updateCart(this.selectedCart).subscribe()
   }
@@ -156,7 +162,7 @@ export class CreateDivComponent implements OnInit {
     let sayac = 0
     for(let j = 0; j < this.parentNumSum.length ;j++){
      for( let i = 0; i < this.carts.length; i++){
-        if(this.carts[i].parent.id == this.parentNumSum[j]){
+        if(this.carts[i].parent == this.parentNumSum[j]){
           sayac++;          
         }      
     }
@@ -164,6 +170,11 @@ export class CreateDivComponent implements OnInit {
       sayac = 0;
   }
  //console.log(this.parentSum)
+}
+
+findChildIndex(cart: Cart)
+{
+  return this.objCart.child.findIndex(carts => carts.id == cart.id)
 }
 
 }

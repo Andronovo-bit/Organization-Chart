@@ -19,7 +19,7 @@ export class CartComponent implements OnInit {
 
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
-    this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));
+    this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) =>  n1.parent - n2.parent));
     //this.productsObservable2.subscribe(carts => this.splice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))));
     this.parentFnLoadPage("false");
     

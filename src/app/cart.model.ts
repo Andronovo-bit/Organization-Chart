@@ -6,7 +6,7 @@ export interface Cart {
   img: string;
   startedAt: string;
   bio: string;
-  parent?: Cart;
+  parent: number;
   childNum?: number;
   child?: Cart[];
   constructor()
