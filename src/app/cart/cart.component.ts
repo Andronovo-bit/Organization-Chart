@@ -34,7 +34,7 @@ export class CartComponent implements OnInit {
 		if($event == "true")    {
     this.cartService.
       get_carts()
-      .subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));     
+      .subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent - n2.parent));     
     }
     $event = "false";
 

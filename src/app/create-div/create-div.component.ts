@@ -34,7 +34,7 @@ export class CreateDivComponent implements OnInit {
 
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
-    this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent.id - n2.parent.id));  
+    this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent - n2.parent));  
   
   }
 
@@ -71,7 +71,7 @@ export class CreateDivComponent implements OnInit {
 
   delete_Cart(clickCart: Cart){
     
-    this.objCart = this.get_Cart(clickCart.parent.id)
+    this.objCart = this.get_Cart(clickCart.parent)
 
     this.objCart.childNum--;
     //console.log(this.objCart)
@@ -150,7 +150,7 @@ export class CreateDivComponent implements OnInit {
       "childNum": this.selectedCart.childNum++     
    }  */
    
-   this.selectedCart.child.push(child); 
+   this.selectedCart.child.push(child.id); 
     this.selectedCart.childNum++;
     console.log(this.selectedCart)
     //console.log(this.carts.length)
@@ -174,7 +174,7 @@ export class CreateDivComponent implements OnInit {
 
 findChildIndex(cart: Cart)
 {
-  return this.objCart.child.findIndex(carts => carts.id == cart.id)
+  return this.objCart.child.findIndex(carts => carts == cart.id)
 }
 
 }
