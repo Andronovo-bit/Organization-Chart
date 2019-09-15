@@ -13,6 +13,7 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 export class CartComponent implements OnInit {
 
   public carts: Cart[] = [];
+  public cartsHaveChild: Cart[] = [];
   public productsObservable: Observable<Cart[]>;
   //public productsObservable2: Observable<Cart[]>;
   //public splice: Cart[] = [];
@@ -28,19 +29,31 @@ export class CartComponent implements OnInit {
   ngOnInit() {
   }
 
-  parentFnLoadPage($event: string) {		
+  parentFnLoadPage($event: string) {	
+    console.log("event")	
     console.log($event)
 
 		if($event == "true")    {
     this.cartService.
       get_carts()
-      .subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent - n2.parent));     
+      .subscribe(carts => this.carts = carts);     
     }
-    $event = "false";
 
+    $event = "false";
+  console.log($event)
        /* this.cartService.
       get_carts()
       .subscribe(carts =>this.splice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))))   */
+    }
+
+    parentHaveChild()
+    {
+      for(let i = 0; i<this.carts.length; i++)
+      {
+        if(this.carts[i].childNum > 0){
+          this.cartsHaveChild.push(this.carts[i])
+        }
+      }
     }
 
 }

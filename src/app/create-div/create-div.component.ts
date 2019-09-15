@@ -46,7 +46,7 @@ export class CreateDivComponent implements OnInit {
   }
 
   createNewCard(clickCart: Cart) {
-    
+
     this.selectedCart = clickCart;
 
     this.cardObj = {
@@ -58,28 +58,29 @@ export class CreateDivComponent implements OnInit {
       "bio": "",
       "parent": this.parent.id,
       "childNum": 0,
-      "child": []
+      "child": [] 
     }    
 
     this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Cart) => {
-      this.updateChildNumber(res)
-        this.cartService.updateCart(this.selectedCart)
-           this.trigger.emit("true");
+      this.updateChildNumber(res)        
     })
+                                            
     //this.updateChildNumber()
   }
-
+   
   delete_Cart(clickCart: Cart){
     
     this.objCart = this.get_Cart(clickCart.parent)
-
-    this.objCart.childNum--;
     //console.log(this.objCart)
     //console.log(this.findChildIndex(clickCart))
-    this.objCart.child.splice(this.findChildIndex(clickCart),1)
-    //console.log(this.objCart.child.pop())
-
-    this.cartService.updateCart(this.objCart).subscribe()
+    //this.objCart.child.splice(this.findChildIndex(clickCart),1)
+    //this.objCart.child.pop()
+    delete this.objCart.child[this.findChildIndex(clickCart)]
+    this.objCart.childNum--;
+    console.log(this.objCart)
+    this.cartService.updateCart(this.objCart).subscribe((res: void)=>{
+      this.trigger.emit("true");
+    })
 
     /*if(clickCart.child > 0){
 
@@ -154,7 +155,10 @@ export class CreateDivComponent implements OnInit {
     this.selectedCart.childNum++;
     console.log(this.selectedCart)
     //console.log(this.carts.length)
-    this.cartService.updateCart(this.selectedCart).subscribe()
+    this.cartService.updateCart(this.selectedCart).subscribe((res: void)=>{
+      this.trigger.emit("true");
+    })
+   
   }
 
   deneme() //getHaveParentNum
@@ -169,12 +173,13 @@ export class CreateDivComponent implements OnInit {
       this.parentSum.push(sayac)
       sayac = 0;
   }
- //console.log(this.parentSum)
+  console.log(this.parentSum)
 }
 
 findChildIndex(cart: Cart)
 {
-  return this.objCart.child.findIndex(carts => carts == cart.id)
+ // return this.objCart.child.findIndex(carts => carts == cart.id)
+  return this.objCart.child.indexOf(cart.id)
 }
 
 }
