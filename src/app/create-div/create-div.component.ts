@@ -68,7 +68,7 @@ export class CreateDivComponent implements OnInit {
     this.http.post("https://5d72531d5acf5e0014730cb8.mockapi.io/api/ocv/1/cart/", this.cardObj).subscribe((res: Cart) => {
       this.updateChildNumber(res)        
     })
-                                            
+    
     //this.updateChildNumber()
   }
    
@@ -96,6 +96,8 @@ export class CreateDivComponent implements OnInit {
       this.cartService.deleteCart(clickCart.id).subscribe((res: Response)=>{
       this.trigger.emit("true");
     })
+
+    this.refreshPage();
 
   }
 
@@ -163,7 +165,7 @@ export class CreateDivComponent implements OnInit {
     this.cartService.updateCart(this.selectedCart).subscribe((res: void)=>{
       this.trigger.emit("true");
     })
-   
+   this.refreshPage()
   }
 
   deneme() //getHaveParentNum
@@ -190,8 +192,16 @@ findChildIndex(cart: Cart)
 createArryUseParentChild()
 {
   for(let i = 0; i < this.parentData.child.length; i++ ){
-    this.childs.push(this.get_Cart(this.parentData.child[i]))
+    if(this.parentData.child[i] != null)
+      this.childs.push(this.get_Cart(this.parentData.child[i]))
   }
 }
+
+ refreshPage()
+    {
+      this.cartService.
+      get_carts()
+      .subscribe(carts => this.carts = carts); 
+    }
 
 }

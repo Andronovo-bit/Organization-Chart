@@ -51,13 +51,28 @@ export class CartComponent implements OnInit {
 
     parentHaveChild(carts: Cart[])
     {
+      if(carts.length <= 1)
+      {
+        this.cartsHaveChild.push(this.carts[0])
+      }
+      else{
       for(let i = 0; i<carts.length; i++)
       {
         if(carts[i].childNum > 0){
           this.cartsHaveChild.push(this.carts[i])
         }
       }
-      return this.cartsHaveChild;
+     
+    }
+    console.log(this.cartsHaveChild)
+     return this.cartsHaveChild;
+    }
+
+    refreshPage()
+    {
+      this.cartService.
+      get_carts()
+      .subscribe(carts => this.carts = carts); 
     }
 
 }
