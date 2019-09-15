@@ -11,14 +11,14 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 })
 export class CreateDivComponent implements OnInit {
 
- @Input() public parentData;
+ @Input() public parentData: Cart;
   
   //public childCarts: Cart[] = [];
 
   private detail = false;
   private parent: Cart;
   private objCart: Cart;
-  //private child: Cart[] = [];
+  childs: Cart[] = [];
   public selectedCart: Cart;
   public carts: Cart[] = [];
   public productsObservable: Observable<Cart[]>;
@@ -34,11 +34,15 @@ export class CreateDivComponent implements OnInit {
 
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
-    this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) => n1.parent - n2.parent));  
+    this.productsObservable.subscribe((carts: Cart[]) => { 
+      this.carts = carts.sort((n1,n2) => n1.parent - n2.parent)
+      this.createArryUseParentChild()
+      });  
   
   }
 
  ngOnInit() {  
+   
  }
 
   get_Cart(id: number): Cart {
@@ -100,6 +104,7 @@ export class CreateDivComponent implements OnInit {
     this.selectedCart = newCart;
     this.cartService.changeMessage(this.detail, this.selectedCart);
     console.log(this.carts)
+
    // console.log(this.parentSum)
 
   }
@@ -180,6 +185,13 @@ findChildIndex(cart: Cart)
 {
  // return this.objCart.child.findIndex(carts => carts == cart.id)
   return this.objCart.child.indexOf(cart.id)
+}
+
+createArryUseParentChild()
+{
+  for(let i = 0; i < this.parentData.child.length; i++ ){
+    this.childs.push(this.get_Cart(this.parentData.child[i]))
+  }
 }
 
 }
