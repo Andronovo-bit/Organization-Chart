@@ -12,15 +12,18 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 })
 export class CartComponent implements OnInit {
 
-  public carts: Cart[] = [];
-  public cartsHaveChild: Cart[] = [];
+  public carts: Cart[] = []
+  cartsHaveChild: Cart[] = [];
   public productsObservable: Observable<Cart[]>;
   //public productsObservable2: Observable<Cart[]>;
   //public splice: Cart[] = [];
 
   constructor(private cartService: CartService, private http: HttpClient) {
     this.productsObservable = cartService.get_carts();
-    this.productsObservable.subscribe(carts => this.carts = carts.sort((n1,n2) =>  n1.parent - n2.parent));
+    this.productsObservable.subscribe((carts: Cart[]) => {
+      (this.carts = carts.sort((n1,n2) =>  n1.parent - n2.parent))
+      this.cartsHaveChild = this.parentHaveChild(this.carts)
+      })
     //this.productsObservable2.subscribe(carts => this.splice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))));
     this.parentFnLoadPage("false");
     
@@ -46,14 +49,15 @@ export class CartComponent implements OnInit {
       .subscribe(carts =>this.splice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))))   */
     }
 
-    parentHaveChild()
+    parentHaveChild(carts: Cart[])
     {
-      for(let i = 0; i<this.carts.length; i++)
+      for(let i = 0; i<carts.length; i++)
       {
-        if(this.carts[i].childNum > 0){
+        if(carts[i].childNum > 0){
           this.cartsHaveChild.push(this.carts[i])
         }
       }
+      return this.cartsHaveChild;
     }
 
 }
