@@ -1,5 +1,5 @@
+ <div class="row" *ngIf="parentData.childNum > 1">
  {{parentData.parent}} - {{parentData.id}} -- {{parentData.childNum}}
- {{childs}}
 <mat-card class="example-card m-5" style="width:300px; height:150px;">
       <img src={{parentData.img}} class="rounded-circle img-fluid border border-dark" style="width:50px; height:50px;">
   <!--<mat-card-header class="container ">
@@ -20,8 +20,27 @@
   </mat-card-actions>
 </mat-card>
 
-  <!--<div class="row" *ngIf="parentData.parent.id == 1">
-  <app-create-div [parentData]="parentData">
-
-  </app-create-div>
-  </div-->
+  <!--div class="row" *ngIf="parentData.childNum > 1">
+    <div *ngFor="let child of childs">
+       {{child.parent}} - {{child.id}} -- {{child.childNum}}
+          <mat-card class="example-card m-5" style="width:300px; height:150px;">
+      <img src={{child.img}} class="rounded-circle img-fluid border border-dark" style="width:50px; height:50px;">
+  <!--<mat-card-header class="container ">
+  </mat-card-header>
+  <mat-card-title class=" d-flex float-right">{{child.pos}}</mat-card-title>
+  <mat-card-content class="mt-2">
+   <mat-card-subtitle class="text-center" >{{child.name}}</mat-card-subtitle>
+  </mat-card-content>
+  <mat-card-actions class="float-right">
+    <div class="button-row">
+    <button (click)="getParent(child); deneme()" mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">+</button>
+      <mat-menu #menu="matMenu">
+        <button (click)="createNewCard(child)" mat-menu-item>Add</button>
+        <button (click)="get_Detail(child)" type="button" mat-menu-item>Detail</button>
+        <button (click)="delete_Cart(child)" mat-menu-item>Remove</button>
+      </mat-menu>
+    </div>
+  </mat-card-actions>
+</mat-card>
+    </div>
+  </div>!-->
