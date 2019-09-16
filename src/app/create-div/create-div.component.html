@@ -1,4 +1,4 @@
- <div class="row" *ngIf="parentData.childNum > 1">
+ <div class="row" *ngIf="parentData.parent == null" >
  {{parentData.parent}} - {{parentData.id}} -- {{parentData.childNum}}
 <mat-card class="example-card m-5" style="width:300px; height:150px;">
       <img src={{parentData.img}} class="rounded-circle img-fluid border border-dark" style="width:50px; height:50px;">
@@ -19,8 +19,9 @@
     </div>
   </mat-card-actions>
 </mat-card>
+ </div>
 
-  <div class="row" *ngIf="parentData.childNum > 1">
+  <div class="row" *ngIf="parentData.childNum >= 1">
     <div *ngFor="let child of childs">
        {{child.parent}} - {{child.id}} -- {{child.childNum}}
           <mat-card class="example-card m-5" style="width:300px; height:150px;">

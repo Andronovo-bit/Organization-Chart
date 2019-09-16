@@ -39,11 +39,16 @@ export class CartComponent implements OnInit {
 		if($event == "true")    {
     this.cartService.
       get_carts()
-      .subscribe(carts => this.carts = carts);     
+      .subscribe((carts: Cart[]) =>{ this.carts = carts   
+       console.log(this.carts)
+       //this.cartsHaveChild.push(this.carts[this.carts.length-1])  
+       this.refreshPage()
+       });     
     }
 
     $event = "false";
   console.log($event)
+ 
        /* this.cartService.
       get_carts()
       .subscribe(carts =>this.splice = ((carts.sort((n1,n2) => n1.parent.id - n2.parent.id).slice(1,4))))   */
@@ -53,7 +58,7 @@ export class CartComponent implements OnInit {
     {
       if(carts.length <= 1)
       {
-        this.cartsHaveChild.push(this.carts[0])
+        this.cartsHaveChild.push(this.carts[this.carts.length-1])
       }
       else{
       for(let i = 0; i<carts.length; i++)
@@ -70,9 +75,8 @@ export class CartComponent implements OnInit {
 
     refreshPage()
     {
-      this.cartService.
-      get_carts()
-      .subscribe(carts => this.carts = carts); 
+      this.cartsHaveChild.push(this.carts[this.carts.length-1])
+      return this.cartsHaveChild
     }
 
 }
