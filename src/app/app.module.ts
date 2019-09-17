@@ -18,10 +18,11 @@ import { CartComponent } from './cart/cart.component';
 import { CreateDivComponent } from './create-div/create-div.component';
 import { ParentCartComponent } from './parent-cart/parent-cart.component';
 import { ChildCartComponent } from './child-cart/child-cart.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, BrowserAnimationsModule,
-  MatButtonModule, MatCheckboxModule, MatInputModule , MatSelectModule, MatCardModule, MatDatepickerModule, MatMenuModule, HttpClientModule],
+  MatButtonModule, MatCheckboxModule, MatInputModule , MatSelectModule, MatCardModule, MatDatepickerModule, MatMenuModule, HttpClientModule,MatIconModule],
 
   declarations: [ AppComponent, CartDetailComponent, CartComponent, CreateDivComponent, ParentCartComponent, ChildCartComponent ],
 

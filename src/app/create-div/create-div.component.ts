@@ -27,6 +27,7 @@ export class CreateDivComponent implements OnInit {
   private parentNumSum: number[] = [null,1,2,3,4,5]
   private parentSum: number[] = [];
   private indexArry: number;
+  
   //cardObj3: object = {};
 
 
